@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "BanyuHub API Documentation",
+        "description": "Dokumentasi REST API BanyuHub.space",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Local API Server"
+        }
+    ],
+    "paths": {
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get authenticated user",
+                "operationId": "4e44cf9a540963d379e34df9bf78481c",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "User"
+        }
+    ]
+}

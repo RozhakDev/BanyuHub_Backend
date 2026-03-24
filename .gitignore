@@ -1,0 +1,48 @@
+# Environment
+.env.production
+.env
+.env.backup
+
+# Dependencies
+/vendor
+/node_modules
+
+# Build & Generated Files
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+
+# IDE & Editor
+/.cursor/
+/.idea
+/.nova
+/.vscode
+/.zed
+
+# Cache & Testing
+.phpunit.result.cache
+/.phpunit.cache
+
+# Laravel / PHP Tools
+.phpactor.json
+_ide_helper.php
+/auth.json
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Logs
+*.log
+
+# AI Agent & Context
+/.antigravitycli
+/.codex
+/ai_context
