@@ -1,7 +1,21 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\RegistrationController;
 
-Route::get('/user', UserController::class)->middleware('auth:sanctum');
+// Public Routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/events', [EventController::class, 'index']);
+Route::get('/events/{id}', [EventController::class, 'show']);
+
+// Protected Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [AuthController::class, 'me']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::post('/register-event', [RegistrationController::class, 'store']);
+    Route::get('/my-registrations', [RegistrationController::class, 'myRegistrations']);
+});
