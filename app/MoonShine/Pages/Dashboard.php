@@ -8,10 +8,22 @@ use MoonShine\Laravel\Pages\Page;
 use MoonShine\Contracts\UI\ComponentContract;
 #[\MoonShine\MenuManager\Attributes\SkipMenu]
 
+/**
+ * Class Dashboard
+ * 
+ * Halaman Dashboard utama untuk admin panel MoonShine.
+ * Menyajikan visualisasi data ringkas statistik platform BanyuHub.space (Total Event, User, RSVP, Ulasan),
+ * serta charts/grafik pertumbuhan event dan pendaftaran dalam 30 hari terakhir.
+ */
 class Dashboard extends Page
 {
     /**
      * @return array<string, string>
+     */
+    /**
+     * Mendapatkan daftar breadcrumb navigasi halaman Dashboard.
+     * 
+     * @return array<string, string> Label dan URL navigasi.
      */
     public function getBreadcrumbs(): array
     {
@@ -20,6 +32,11 @@ class Dashboard extends Page
         ];
     }
 
+    /**
+     * Mendapatkan judul halaman Dashboard untuk ditampilkan di header admin panel.
+     * 
+     * @return string Judul halaman.
+     */
     public function getTitle(): string
     {
         return $this->title ?: 'Dashboard';
@@ -27,6 +44,14 @@ class Dashboard extends Page
 
     /**
      * @return list<ComponentContract>
+     */
+    /**
+     * Menyusun komponen UI yang ditampilkan pada Halaman Dashboard.
+     * 
+     * Menyusun layout grid berisi ValueMetric untuk menampilkan total data dari database secara real-time,
+     * serta LineChartMetric untuk menampilkan grafik tren harian penambahan event baru dan pendaftaran baru.
+     * 
+     * @return list<\MoonShine\Contracts\UI\ComponentContract> Koleksi komponen antarmuka dashboard.
      */
     protected function components(): iterable
     {

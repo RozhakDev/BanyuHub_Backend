@@ -7,6 +7,13 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
+/**
+ * Class EventController
+ * 
+ * Controller ini menangani penyajian data event untuk konsumsi API publik (terutama aplikasi mobile Flutter).
+ * Menyediakan fungsionalitas pencarian event berdasarkan kata kunci, filter berdasarkan status event,
+ * serta pengambilan detail lengkap suatu event.
+ */
 class EventController extends Controller
 {
     #[OA\Get(
@@ -21,6 +28,16 @@ class EventController extends Controller
             new OA\Response(response: 200, description: 'Success'),
         ],
     )]
+    /**
+     * Mengambil daftar event dengan dukungan pencarian, filter status, dan paginasi.
+     * 
+     * Memungkinkan client mencari event berdasarkan nama, deskripsi, atau lokasi,
+     * serta melakukan filter berdasarkan status ('Mendatang', 'Sedang Berjalan', 'Selesai', 'Dibatalkan').
+     * Hasil pencarian dibatasi menggunakan paginasi default sebanyak 10 item per halaman.
+     * 
+     * @param \Illuminate\Http\Request $request Data request berisi opsional query parameter 'search' dan 'status'.
+     * @return \Illuminate\Http\JsonResponse Respon sukses berisi daftar event yang terpaginasi.
+     */
     public function index(Request $request)
     {
         $query = Event::query();
@@ -53,6 +70,15 @@ class EventController extends Controller
             new OA\Response(response: 404, description: 'Not Found'),
         ],
     )]
+    /**
+     * Mengambil detail lengkap suatu event berdasarkan ID.
+     * 
+     * Mencari event yang sesuai dengan ID yang diberikan. Jika data ditemukan,
+     * akan dikembalikan beserta respons sukses. Jika tidak ditemukan, mengembalikan status error 404.
+     * 
+     * @param int|string $id ID event yang dicari.
+     * @return \Illuminate\Http\JsonResponse Respon berisi data detail event atau pesan error jika tidak ditemukan.
+     */
     public function show($id)
     {
         $event = Event::find($id);

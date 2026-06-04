@@ -9,6 +9,15 @@ use App\Models\Event;
 use App\Models\Review;
 use OpenApi\Attributes as OA;
 
+/**
+ * Class ReviewController
+ * 
+ * Controller ini mengatur pemberian ulasan dan rating pada event di platform BanyuHub.space.
+ * Mengimplementasikan aturan bisnis agar ulasan hanya dapat dikirimkan jika:
+ * 1. Event tersebut sudah berstatus 'Selesai'.
+ * 2. Pengguna terdaftar pada event tersebut dan status pendaftarannya adalah 'Approved'.
+ * 3. Pengguna belum pernah memberikan ulasan pada event tersebut (satu pengguna hanya satu ulasan per event).
+ */
 class ReviewController extends Controller
 {
     #[OA\Get(
@@ -22,6 +31,14 @@ class ReviewController extends Controller
             new OA\Response(response: 200, description: 'Berhasil mendapatkan ulasan'),
         ]
     )]
+    /**
+     * Mengambil seluruh daftar ulasan untuk event tertentu.
+     * 
+     * Mengembalikan ulasan beserta nama pengguna yang memberikan rating dan komentar.
+     * 
+     * @param \App\Models\Event $event Objek event yang diikat (Route Model Binding).
+     * @return \Illuminate\Http\JsonResponse Respon sukses yang menyertakan data ulasan.
+     */
     public function index(Event $event)
     {
         $reviews = $event->reviews()->with('user:id,name')->get();
@@ -53,6 +70,19 @@ class ReviewController extends Controller
             new OA\Response(response: 403, description: 'Tidak memiliki akses untuk mengulas'),
         ]
     )]
+    /**
+     * Mengirimkan ulasan (rating dan komentar) baru untuk suatu event.
+     * 
+     * Melakukan pengecekan aturan bisnis:
+     * - Memastikan status event sudah 'Selesai'.
+     * - Memastikan user terdaftar dengan status RSVP 'Approved'.
+     * - Mencegah duplikasi ulasan dari user yang sama.
+     * - Memvalidasi rating harus berupa angka bulat 1-5, dan komentar maksimal 1000 karakter.
+     * 
+     * @param \Illuminate\Http\Request $request Data request berisi input rating dan komentar.
+     * @param \App\Models\Event $event Objek event yang diulas (Route Model Binding).
+     * @return \Illuminate\Http\JsonResponse Respon sukses ulasan ditambahkan atau pesan error jika validasi/aturan bisnis dilanggar.
+     */
     public function store(Request $request, Event $event)
     {
         if ($event->status !== 'Selesai') {

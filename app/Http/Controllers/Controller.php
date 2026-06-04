@@ -40,6 +40,12 @@ use OpenApi\Attributes as OA;
     name: 'Reviews',
     description: 'Ulasan dan sistem rating komunitas terhadap event yang sudah selesai.'
 )]
+/**
+ * Class Controller
+ * 
+ * Kelas dasar (base controller) untuk seluruh controller di aplikasi BanyuHub.space.
+ * Berfungsi sebagai tempat konfigurasi metadata dan tag global untuk dokumentasi API OpenAPI (Swagger).
+ */
 abstract class Controller
 {
     //

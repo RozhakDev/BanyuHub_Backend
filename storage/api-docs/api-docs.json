@@ -22,6 +22,7 @@
                     "Authentication"
                 ],
                 "summary": "Register pengguna baru",
+                "description": "Mendaftarkan pengguna (mahasiswa/civitas) baru ke sistem.\n\nProses ini memvalidasi input data nama, email unik, dan password minimal 6 karakter.\nSetelah data disimpan dengan password terenkripsi, sistem langsung menerbitkan\ntoken akses API (Sanctum) agar pengguna baru bisa langsung terautentikasi.",
                 "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
                 "parameters": [
                     {
@@ -62,6 +63,7 @@
                     "Authentication"
                 ],
                 "summary": "Login pengguna",
+                "description": "Melakukan proses login pengguna.\n\nMemverifikasi kecocokan email dan password yang dikirimkan.\nJika sukses, token akses API (Sanctum) baru akan diterbitkan untuk sesi pengguna ini.\nJika gagal, sistem akan mengembalikan pengecualian validasi berupa pesan kesalahan kredensial.",
                 "operationId": "222b2625838e3c57e017987f73598fda",
                 "parameters": [
                     {
@@ -94,6 +96,7 @@
                     "User"
                 ],
                 "summary": "Get authenticated user",
+                "description": "Mengambil informasi profil pengguna yang sedang login.\n\nEndpoint ini memerlukan token akses Bearer yang valid. Data yang dikembalikan\nberupa objek detail profil pengguna (ID, nama, email, role, dan penanda verifikasi).",
                 "operationId": "e44b931999dcfc054d7a30b300537f43",
                 "responses": {
                     "200": {
@@ -113,6 +116,7 @@
                     "Authentication"
                 ],
                 "summary": "Logout pengguna",
+                "description": "Melakukan proses logout pengguna.\n\nMencabut dan menghapus token akses API (Sanctum) yang sedang aktif digunakan,\nsehingga sesi autentikasi pengguna tersebut diakhiri dan tidak bisa lagi mengakses endpoint terproteksi.",
                 "operationId": "ad65cbbd4e9f201619eae184a5961a98",
                 "responses": {
                     "200": {
@@ -132,6 +136,7 @@
                     "Events"
                 ],
                 "summary": "Dapatkan semua event dengan fitur pencarian dan filter",
+                "description": "Mengambil daftar event dengan dukungan pencarian, filter status, dan paginasi.\n\nMemungkinkan client mencari event berdasarkan nama, deskripsi, atau lokasi,\nserta melakukan filter berdasarkan status ('Mendatang', 'Sedang Berjalan', 'Selesai', 'Dibatalkan').\nHasil pencarian dibatasi menggunakan paginasi default sebanyak 10 item per halaman.",
                 "operationId": "e529c81e6aaec82f49950a87ed881f57",
                 "parameters": [
                     {
@@ -172,11 +177,13 @@
                     "Events"
                 ],
                 "summary": "Dapatkan detail event",
+                "description": "Mengambil detail lengkap suatu event berdasarkan ID.\n\nMencari event yang sesuai dengan ID yang diberikan. Jika data ditemukan,\nakan dikembalikan beserta respons sukses. Jika tidak ditemukan, mengembalikan status error 404.",
                 "operationId": "c0f602d773798994c228d99dbd63b842",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "ID event yang dicari.",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -199,6 +206,7 @@
                     "Registrations"
                 ],
                 "summary": "Daftar ke sebuah event",
+                "description": "Mendaftarkan pengguna yang sedang login ke sebuah event.\n\nMelakukan validasi ketat sebelum pendaftaran dibuat:\n1. Memastikan event ada di database.\n2. Memastikan status event bukan 'Selesai' atau 'Dibatalkan'.\n3. Memastikan kuota peserta event masih tersedia (lebih besar dari 0).\n4. Memastikan pengguna belum pernah mendaftar di event yang sama sebelumnya (mencegah duplikasi).\n\nJika semua validasi lolos, pendaftaran disimpan dengan status awal 'Pending' (dan memicu\nmodel observer untuk otomatis mengurangi kuota event sebanyak 1).",
                 "operationId": "692fbcdfcf936f3a3a0b78d0550a489d",
                 "parameters": [
                     {
@@ -231,6 +239,7 @@
                     "Registrations"
                 ],
                 "summary": "Dapatkan status registrasi event pengguna",
+                "description": "Mengambil daftar riwayat pendaftaran event milik pengguna yang sedang login.\n\nMengembalikan seluruh record pendaftaran yang dibuat oleh pengguna, lengkap dengan\nrelasi data detail event-nya, diurutkan dari pendaftaran yang terbaru.",
                 "operationId": "8eee03fe19237fe180f869f27278df21",
                 "responses": {
                     "200": {
@@ -250,11 +259,13 @@
                     "Reviews"
                 ],
                 "summary": "Dapatkan semua ulasan untuk event tertentu",
+                "description": "Mengambil seluruh daftar ulasan untuk event tertentu.\n\nMengembalikan ulasan beserta nama pengguna yang memberikan rating dan komentar.",
                 "operationId": "94d5427dc3a2a94dbb2ad60e1d101d88",
                 "parameters": [
                     {
                         "name": "event",
                         "in": "path",
+                        "description": "Objek event yang diikat (Route Model Binding).",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -272,11 +283,13 @@
                     "Reviews"
                 ],
                 "summary": "Tambahkan ulasan ke event",
+                "description": "Mengirimkan ulasan (rating dan komentar) baru untuk suatu event.\n\nMelakukan pengecekan aturan bisnis:\n- Memastikan status event sudah 'Selesai'.\n- Memastikan user terdaftar dengan status RSVP 'Approved'.\n- Mencegah duplikasi ulasan dari user yang sama.\n- Memvalidasi rating harus berupa angka bulat 1-5, dan komentar maksimal 1000 karakter.",
                 "operationId": "2b4652ff9813984267b83715620e4e1e",
                 "parameters": [
                     {
                         "name": "event",
                         "in": "path",
+                        "description": "Objek event yang diulas (Route Model Binding).",
                         "required": true,
                         "schema": {
                             "type": "integer"
