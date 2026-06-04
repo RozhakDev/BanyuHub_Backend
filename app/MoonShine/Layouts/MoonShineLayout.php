@@ -33,10 +33,16 @@ final class MoonShineLayout extends AppLayout
     {
         return [
             ...parent::menu(),
-            MenuItem::make(EventResource::class, 'Events'),
-            MenuItem::make(RegistrationResource::class, 'Registrations'),
-            MenuItem::make(UserResource::class, 'Users'),
-            MenuItem::make(ReviewResource::class, 'Reviews'),
+            
+            \MoonShine\MenuManager\MenuGroup::make('Manajemen Event', [
+                MenuItem::make(EventResource::class, 'Data Event')->icon('calendar-days'),
+                MenuItem::make(RegistrationResource::class, 'Pendaftaran Event')->icon('ticket'),
+                MenuItem::make(ReviewResource::class, 'Ulasan Event')->icon('star'),
+            ])->icon('queue-list'),
+
+            \MoonShine\MenuManager\MenuGroup::make('Data Pengguna', [
+                MenuItem::make(UserResource::class, 'Data Mahasiswa')->icon('users'),
+            ])->icon('user-group'),
         ];
     }
 

@@ -30,9 +30,8 @@ class UserIndexPage extends IndexPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
+            \MoonShine\UI\Fields\Text::make('Nama Mahasiswa', 'name'),
             \MoonShine\UI\Fields\Text::make('Email', 'email'),
-            \MoonShine\UI\Fields\Text::make('Role', 'role'),
         ];
     }
 

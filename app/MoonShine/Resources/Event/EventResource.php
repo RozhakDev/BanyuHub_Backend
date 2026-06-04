@@ -20,7 +20,7 @@ class EventResource extends ModelResource
 {
     protected string $model = Event::class;
 
-    protected string $title = 'Events';
+    protected string $title = 'Kelola Event';
     
     /**
      * @return list<class-string<PageContract>>

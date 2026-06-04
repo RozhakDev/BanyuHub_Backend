@@ -29,15 +29,17 @@ class EventFormPage extends FormPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
-            \MoonShine\UI\Fields\Textarea::make('Description', 'description'),
-            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple()->removable(),
-            \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
-            \MoonShine\UI\Fields\Text::make('Location', 'location'),
-            \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
+            \MoonShine\UI\Fields\Text::make('Nama Event', 'name'),
+            \MoonShine\UI\Fields\Textarea::make('Deskripsi', 'description'),
+            \MoonShine\UI\Fields\Image::make('Gambar', 'images')->multiple()->removable(),
+            \MoonShine\UI\Fields\Date::make('Tanggal & Waktu', 'event_date')->withTime(),
+            \MoonShine\UI\Fields\Text::make('Lokasi', 'location'),
+            \MoonShine\UI\Fields\Number::make('Kuota Peserta', 'quota'),
             \MoonShine\UI\Fields\Select::make('Status', 'status')->options([
                 'Mendatang' => 'Mendatang',
-                'Selesai' => 'Selesai'
+                'Sedang Berjalan' => 'Sedang Berjalan',
+                'Selesai' => 'Selesai',
+                'Dibatalkan' => 'Dibatalkan'
             ]),
         ];
     }

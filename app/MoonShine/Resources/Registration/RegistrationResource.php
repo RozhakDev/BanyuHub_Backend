@@ -20,7 +20,7 @@ class RegistrationResource extends ModelResource
 {
     protected string $model = Registration::class;
 
-    protected string $title = 'Registrations';
+    protected string $title = 'Pendaftaran';
     
     /**
      * @return list<class-string<PageContract>>

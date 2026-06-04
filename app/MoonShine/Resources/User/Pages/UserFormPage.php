@@ -29,9 +29,9 @@ class UserFormPage extends FormPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
+            \MoonShine\UI\Fields\Text::make('Nama Mahasiswa', 'name'),
             \MoonShine\UI\Fields\Text::make('Email', 'email'),
-            \MoonShine\UI\Fields\Text::make('Role', 'role'),
+            \MoonShine\UI\Fields\Password::make('Password', 'password'),
         ];
     }
 

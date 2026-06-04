@@ -26,8 +26,8 @@ class RegistrationDetailPage extends DetailPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('User ID', 'user_id'),
-            \MoonShine\UI\Fields\Text::make('Event ID', 'event_id'),
+            \MoonShine\Laravel\Fields\Relationships\BelongsTo::make('Mahasiswa', 'user', 'name'),
+            \MoonShine\Laravel\Fields\Relationships\BelongsTo::make('Event', 'event', 'name'),
             \MoonShine\UI\Fields\Text::make('Status', 'status'),
         ];
     }

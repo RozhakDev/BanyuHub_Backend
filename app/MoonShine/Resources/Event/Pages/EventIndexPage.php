@@ -30,11 +30,11 @@ class EventIndexPage extends IndexPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
-            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple(),
-            \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
-            \MoonShine\UI\Fields\Text::make('Location', 'location'),
-            \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
+            \MoonShine\UI\Fields\Text::make('Nama Event', 'name'),
+            \MoonShine\UI\Fields\Image::make('Gambar', 'images')->multiple(),
+            \MoonShine\UI\Fields\Date::make('Tanggal & Waktu', 'event_date')->withTime(),
+            \MoonShine\UI\Fields\Text::make('Lokasi', 'location'),
+            \MoonShine\UI\Fields\Number::make('Kuota Peserta', 'quota'),
             \MoonShine\UI\Fields\Text::make('Status', 'status'),
         ];
     }
