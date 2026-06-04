@@ -68,9 +68,14 @@ class ReviewController extends Controller
             return response()->json(['message' => 'Anda harus terdaftar dan disetujui (Approved) untuk dapat mengulas event ini.'], 403);
         }
 
+        $existingReview = $event->reviews()->where('user_id', $request->user()->id)->exists();
+        if ($existingReview) {
+            return response()->json(['message' => 'Anda sudah memberikan ulasan untuk event ini. Ulasan hanya dapat diberikan satu kali.'], 400);
+        }
+
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string'
+            'comment' => 'nullable|string|max:1000'
         ]);
 
         $review = $event->reviews()->create([

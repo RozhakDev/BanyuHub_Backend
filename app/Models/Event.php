@@ -24,6 +24,19 @@ class Event extends Model
         'images' => 'array',
     ];
 
+    protected $appends = ['image_urls'];
+
+    public function getImageUrlsAttribute()
+    {
+        if (empty($this->images) || !is_array($this->images)) {
+            return [];
+        }
+        
+        return array_map(function ($path) {
+            return asset('storage/' . $path);
+        }, $this->images);
+    }
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);

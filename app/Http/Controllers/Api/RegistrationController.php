@@ -19,12 +19,23 @@ class RegistrationController extends Controller
         ],
         responses: [
             new OA\Response(response: 201, description: 'Registered successfully'),
+            new OA\Response(response: 400, description: 'Kuota penuh atau sudah terdaftar'),
         ],
     )]
     public function store(Request $request)
     {
         $request->validate(['event_id' => 'required|exists:events,id']);
         $user = $request->user();
+
+        $event = \App\Models\Event::findOrFail($request->event_id);
+
+        if (in_array($event->status, ['Selesai', 'Dibatalkan'])) {
+            return response()->json(['message' => 'Pendaftaran ditutup karena event sudah selesai atau dibatalkan.'], 400);
+        }
+
+        if ($event->quota <= 0) {
+            return response()->json(['message' => 'Mohon maaf, kuota event ini sudah penuh'], 400);
+        }
 
         $exists = Registration::where('user_id', $user->id)
                             ->where('event_id', $request->event_id)
@@ -36,7 +47,7 @@ class RegistrationController extends Controller
 
         $registration = Registration::create([
             'user_id' => $user->id,
-            'event_id' => $request->event_id,
+            'event_id' => $event->id,
             'status' => 'Pending',
         ]);
 

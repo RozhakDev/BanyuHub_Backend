@@ -183,6 +183,9 @@
                 "responses": {
                     "201": {
                         "description": "Registered successfully"
+                    },
+                    "400": {
+                        "description": "Kuota penuh atau sudah terdaftar"
                     }
                 },
                 "security": [

@@ -31,10 +31,10 @@ class EventFormPage extends FormPage
             \MoonShine\UI\Fields\ID::make(),
             \MoonShine\UI\Fields\Text::make('Nama Event', 'name'),
             \MoonShine\UI\Fields\Textarea::make('Deskripsi', 'description'),
-            \MoonShine\UI\Fields\Image::make('Gambar', 'images')->multiple()->removable(),
+            \MoonShine\UI\Fields\Image::make('Gambar', 'images')->dir('events')->multiple()->removable(),
             \MoonShine\UI\Fields\Date::make('Tanggal & Waktu', 'event_date')->withTime(),
             \MoonShine\UI\Fields\Text::make('Lokasi', 'location'),
-            \MoonShine\UI\Fields\Number::make('Kuota Peserta', 'quota'),
+            \MoonShine\UI\Fields\Number::make('Kuota Peserta', 'quota')->min(0),
             \MoonShine\UI\Fields\Select::make('Status', 'status')->options([
                 'Mendatang' => 'Mendatang',
                 'Sedang Berjalan' => 'Sedang Berjalan',
