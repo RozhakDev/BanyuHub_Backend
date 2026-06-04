@@ -1,14 +1,18 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "BanyuHub API Documentation",
-        "description": "Dokumentasi REST API BanyuHub.space",
+        "title": "BanyuHub.space API Documentation",
+        "description": "Layanan API untuk sistem informasi event dan komunitas akademik lintas kampus di wilayah Banyumas yang mendukung autentikasi pengguna, manajemen event, registrasi peserta, ulasan event, serta integrasi aplikasi web dan mobile.\n\nDokumentasi API ini dirancang menggunakan standar REST API untuk memudahkan proses pengembangan dan integrasi sistem pada aplikasi mobile Flutter maupun aplikasi web Laravel.",
+        "contact": {
+            "name": "Tim Developer BanyuHub",
+            "email": "developer@banyuhub.space"
+        },
         "version": "1.0.0"
     },
     "servers": [
         {
             "url": "http://localhost:8000",
-            "description": "Local API Server"
+            "description": "Primary API Server"
         }
     ],
     "paths": {
@@ -127,8 +131,34 @@
                 "tags": [
                     "Events"
                 ],
-                "summary": "Dapatkan semua event",
+                "summary": "Dapatkan semua event dengan fitur pencarian dan filter",
                 "operationId": "e529c81e6aaec82f49950a87ed881f57",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Cari berdasarkan nama, deskripsi, atau lokasi",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter berdasarkan status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "Mendatang",
+                                "Sedang Berjalan",
+                                "Selesai",
+                                "Dibatalkan"
+                            ]
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -302,6 +332,8 @@
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
+                "description": "Masukkan Sanctum Token yang didapat dari endpoint Login.",
+                "bearerFormat": "JWT",
                 "scheme": "bearer"
             }
         }
@@ -309,23 +341,23 @@
     "tags": [
         {
             "name": "Authentication",
-            "description": "Authentication"
+            "description": "Manajemen autentikasi mahasiswa (Login, Register, Logout)."
+        },
+        {
+            "name": "Events",
+            "description": "Eksplorasi, pencarian, dan detail kegiatan atau organisasi kampus se-Banyumas."
+        },
+        {
+            "name": "Registrations",
+            "description": "Manajemen partisipasi mahasiswa (pendaftaran event dan riwayat RSVP)."
+        },
+        {
+            "name": "Reviews",
+            "description": "Ulasan dan sistem rating komunitas terhadap event yang sudah selesai."
         },
         {
             "name": "User",
             "description": "User"
-        },
-        {
-            "name": "Events",
-            "description": "Events"
-        },
-        {
-            "name": "Registrations",
-            "description": "Registrations"
-        },
-        {
-            "name": "Reviews",
-            "description": "Reviews"
         }
     ]
 }
