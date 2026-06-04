@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\Event\Pages;
+namespace App\MoonShine\Resources\Review\Pages;
 
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
-use App\MoonShine\Resources\Event\EventResource;
+use App\MoonShine\Resources\Review\ReviewResource;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Fields\ID;
 use Throwable;
 
 
 /**
- * @extends DetailPage<EventResource>
+ * @extends DetailPage<ReviewResource>
  */
-class EventDetailPage extends DetailPage
+class ReviewDetailPage extends DetailPage
 {
     /**
      * @return list<FieldContract>
@@ -26,13 +26,10 @@ class EventDetailPage extends DetailPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
-            \MoonShine\UI\Fields\Textarea::make('Description', 'description'),
-            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple(),
-            \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
-            \MoonShine\UI\Fields\Text::make('Location', 'location'),
-            \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
-            \MoonShine\UI\Fields\Text::make('Status', 'status'),
+            \MoonShine\UI\Fields\Text::make('User ID', 'user_id'),
+            \MoonShine\UI\Fields\Text::make('Event ID', 'event_id'),
+            \MoonShine\UI\Fields\Number::make('Rating', 'rating'),
+            \MoonShine\UI\Fields\Text::make('Comment', 'comment'),
         ];
     }
 

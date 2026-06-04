@@ -12,17 +12,25 @@ class Event extends Model
     protected $fillable = [
         'name',
         'description',
+        'images',
         'event_date',
         'location',
         'quota',
+        'status',
     ];
 
     protected $casts = [
         'event_date' => 'datetime',
+        'images' => 'array',
     ];
 
     public function registrations()
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

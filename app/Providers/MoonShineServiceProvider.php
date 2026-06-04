@@ -13,6 +13,7 @@ use App\MoonShine\Resources\MoonShineUserRole\MoonShineUserRoleResource;
 use App\MoonShine\Resources\Event\EventResource;
 use App\MoonShine\Resources\Registration\RegistrationResource;
 use App\MoonShine\Resources\User\UserResource;
+use App\MoonShine\Resources\Review\ReviewResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 EventResource::class,
                 RegistrationResource::class,
                 UserResource::class,
+                ReviewResource::class,
             ])
             ->pages([
                 ...$core->getConfig()->getPages(),

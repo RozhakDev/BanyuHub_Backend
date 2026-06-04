@@ -2,23 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Resources\Event\Pages;
+namespace App\MoonShine\Resources\Review\Pages;
 
-use MoonShine\Laravel\Pages\Crud\DetailPage;
+use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\Contracts\UI\FieldContract;
-use App\MoonShine\Resources\Event\EventResource;
-use MoonShine\Support\ListOf;
+use MoonShine\Laravel\QueryTags\QueryTag;
+use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Fields\ID;
+use App\MoonShine\Resources\Review\ReviewResource;
+use MoonShine\Support\ListOf;
 use Throwable;
 
 
 /**
- * @extends DetailPage<EventResource>
+ * @extends IndexPage<ReviewResource>
  */
-class EventDetailPage extends DetailPage
+class ReviewIndexPage extends IndexPage
 {
+    protected bool $isLazy = true;
+
     /**
      * @return list<FieldContract>
      */
@@ -26,19 +30,43 @@ class EventDetailPage extends DetailPage
     {
         return [
             \MoonShine\UI\Fields\ID::make(),
-            \MoonShine\UI\Fields\Text::make('Name', 'name'),
-            \MoonShine\UI\Fields\Textarea::make('Description', 'description'),
-            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple(),
-            \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
-            \MoonShine\UI\Fields\Text::make('Location', 'location'),
-            \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
-            \MoonShine\UI\Fields\Text::make('Status', 'status'),
+            \MoonShine\UI\Fields\Text::make('User ID', 'user_id'),
+            \MoonShine\UI\Fields\Text::make('Event ID', 'event_id'),
+            \MoonShine\UI\Fields\Number::make('Rating', 'rating'),
+            \MoonShine\UI\Fields\Text::make('Comment', 'comment'),
         ];
     }
 
+    /**
+     * @return ListOf<ActionButtonContract>
+     */
     protected function buttons(): ListOf
     {
         return parent::buttons();
+    }
+
+    /**
+     * @return list<FieldContract>
+     */
+    protected function filters(): iterable
+    {
+        return [];
+    }
+
+    /**
+     * @return list<QueryTag>
+     */
+    protected function queryTags(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return list<Metric>
+     */
+    protected function metrics(): array
+    {
+        return [];
     }
 
     /**
@@ -46,7 +74,7 @@ class EventDetailPage extends DetailPage
      *
      * @return TableBuilder
      */
-    protected function modifyDetailComponent(ComponentContract $component): ComponentContract
+    protected function modifyListComponent(ComponentContract $component): ComponentContract
     {
         return $component;
     }

@@ -31,9 +31,11 @@ class EventIndexPage extends IndexPage
         return [
             \MoonShine\UI\Fields\ID::make(),
             \MoonShine\UI\Fields\Text::make('Name', 'name'),
+            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple(),
             \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
             \MoonShine\UI\Fields\Text::make('Location', 'location'),
             \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
+            \MoonShine\UI\Fields\Text::make('Status', 'status'),
         ];
     }
 

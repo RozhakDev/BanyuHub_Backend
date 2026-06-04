@@ -13,6 +13,7 @@ use App\MoonShine\Resources\Event\EventResource;
 use MoonShine\MenuManager\MenuItem;
 use App\MoonShine\Resources\Registration\RegistrationResource;
 use App\MoonShine\Resources\User\UserResource;
+use App\MoonShine\Resources\Review\ReviewResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -35,6 +36,7 @@ final class MoonShineLayout extends AppLayout
             MenuItem::make(EventResource::class, 'Events'),
             MenuItem::make(RegistrationResource::class, 'Registrations'),
             MenuItem::make(UserResource::class, 'Users'),
+            MenuItem::make(ReviewResource::class, 'Reviews'),
         ];
     }
 

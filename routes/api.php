@@ -10,6 +10,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/events/{id}', [EventController::class, 'show']);
+Route::get('/events/{event}/reviews', [\App\Http\Controllers\Api\ReviewController::class, 'index']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -18,4 +19,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/register-event', [RegistrationController::class, 'store']);
     Route::get('/my-registrations', [RegistrationController::class, 'myRegistrations']);
+    
+    Route::post('/events/{event}/reviews', [\App\Http\Controllers\Api\ReviewController::class, 'store']);
 });

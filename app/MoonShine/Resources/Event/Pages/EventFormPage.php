@@ -30,9 +30,15 @@ class EventFormPage extends FormPage
         return [
             \MoonShine\UI\Fields\ID::make(),
             \MoonShine\UI\Fields\Text::make('Name', 'name'),
+            \MoonShine\UI\Fields\Textarea::make('Description', 'description'),
+            \MoonShine\UI\Fields\Image::make('Images', 'images')->multiple()->removable(),
             \MoonShine\UI\Fields\Text::make('Date', 'event_date'),
             \MoonShine\UI\Fields\Text::make('Location', 'location'),
             \MoonShine\UI\Fields\Number::make('Quota', 'quota'),
+            \MoonShine\UI\Fields\Select::make('Status', 'status')->options([
+                'Mendatang' => 'Mendatang',
+                'Selesai' => 'Selesai'
+            ]),
         ];
     }
 
